@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package student;
+
+service StudentService {
+  rpc FindAll (FindAllRequest) returns (FindAllResponse);
+  rpc FindByCode (FindByCodeRequest) returns (FindByCodeResponse);
+}
+
+message FindAllRequest {
+  int64 status = 1;
+  optional string search = 2;
+  int64 page = 3;
+}
+
+message StudentResponse {
+  int64 id = 1;
+  string codigo = 2;
+  string nombres = 3;
+  string apellidos = 4;
+  string dni = 5;
+  string direccion = 6;
+  string sexo = 7;
+  string nro_telefono = 8;
+  int64 edad = 9;
+  string url_image = 10;
+  string key_image = 11;
+  int64 estado_id = 12;
+  string created_at = 13;
+  string updated_at = 14;
+  StateStudent estado = 15;
+}
+
+message Meta {
+  int64 total = 1;
+  int64 last_page = 2;
+  int64 current_page = 3;
+  int64 per_page = 4;
+  optional int64 prev = 5;
+  optional int64 next = 6;
+}
+
+message FindAllResponse {
+  repeated StudentResponse data = 1;
+  Meta meta = 2;
+}
+
+message StateStudent {
+  int64 id = 1;
+  string nombre = 2;
+}
+
+message FindByCodeRequest {
+  string code = 1;
+}
+
+message FindByCodeResponse {
+  int64 code = 1;
+  bool success = 2;
+  StudentResponse student = 3;
+}
